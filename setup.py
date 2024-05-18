@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 from typing import List
  
 HYPEN_E_DOT = '-e .'
-def get_requirements(file_path):
+def get_requirements(file_path:str)-> List[str]:
     '''
         this function will return the list of requirements
     ''' 
@@ -13,6 +13,7 @@ def get_requirements(file_path):
         
         if HYPEN_E_DOT in requirements:
             requirements.remove(HYPEN_E_DOT)
+    return requirements
     
     
 
