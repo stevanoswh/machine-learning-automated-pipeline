@@ -3,125 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Exam Performance Indicator</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Customer Purchase Prediction</title>
     <style>
-        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .btn-secondary {
+            background-color: #28a745;
+        }
+        .btn-secondary:hover {
+            background-color: #218838;
+        }
+        .status {
+            margin-top: 20px;
+            text-align: center;
+        }
+        #trainingStatus, #modelPerformance {
+            font-size: 16px;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <div class="login">
-        <h1>Student Exam Performance Indicator</h1>
-    
-        <form action="{{ url_for('predict_datapoint')}}" method="post">
-         <h1>
-             <legend>Student Exam Performance Prediction</legend>
-         </h1>
-         <div class="mb-3">
-             <label class="form-label">Gender</label>
-             <select class="form-control" name="gender" placeholder="Enter you Gender" required>
-                 <option class="placeholder" selected disabled value="">Select your Gender</option>
-                 <option value="male">
-                     Male
-                 </option>
-                 <option value="female">
-                     Female
-                 </option>
-             </select>
-         </div>
-         <div class="mb-3">
-             <label class="form-label">Race or Ethnicity</label>
-             <select class="form-control" name="ethnicity" placeholder="Enter you ethnicity" required>
-                 <option class="placeholder" selected disabled value="">Select Ethnicity</option>
-                 <option value="group A">
-                     Group A
-                 </option>
-                 <option value="group B">
-                     Group B
-                 </option>
-                 <option value="group C">
-                     Group C
-                 </option>
-                 <option value="group D">
-                     Group D
-                 </option>
-                 <option value="group E">
-                     Group E
-                 </option>
-             </select>
-         </div>
-         <div class="mb-3">
-             <label class="form-label">Parental Level of Education</label>
-             <select class="form-control" name="parental_level_of_education"
-                 placeholder="Enter you Parent Education" required>
-                 <option class="placeholder" selected disabled value="">Select Parent Education</option>
-                 <option value="associate's degree">
-                     associate's degree
-                 </option>
-                 <option value="bachelor's degree">
-                     bachelor's degree
-                 </option>
-                 <option value="high school">
-                     high school
-                 </option>
-                 <option value="master's degree">
-                     master's degree
-                 </option>
-                 <option value="some college">
-                     some college
-                 </option>
-                 <option value="some high school">
-                     some high school
-                 </option>
-             </select>
-         </div>
-         <div class="mb-3">
-             <label class="form-label">Lunch Type</label>
-             <select class="form-control" name="lunch" placeholder="Enter you Lunch" required>
-                 <option class="placeholder" selected disabled value="">Select Lunch Type</option>
-                 <option value="free/reduced">
-                     free/reduced
-                 </option>
-                 <option value="standard">
-                     standard
-                 </option>
-             </select>
-         </div>
-         <div class="mb-3">
-             <label class="form-label">Test preparation Course</label>
-             <select class="form-control" name="test_preparation_course" placeholder="Enter you Course"
-                 required>
-                 <option class="placeholder" selected disabled value="">Select Test_course</option>
-                 <option value="none">
-                     None
-                 </option>
-                 <option value="completed">
-                     Completed
-                 </option>
-             </select>
-         </div>
-         <div class="mb-3">
-             <label class="form-label">Writing Score out of 100</label>
-             <input class="form-control" type="number" name="reading_score"
-                 placeholder="Enter your Reading score" min='0' max='100' />
-         </div>
-         <div class="mb-3">
-             <label class="form-label">Reading Score out of 100</label>
-             <input class="form-control" type="number" name="writing_score"
-                 placeholder="Enter your Reading Score" min='0' max='100' />
-         </div>
-         <div class="mb-3">
-             <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required />
-         </div>
-     </form>
-     <h2>
-        THE  prediction is {{results}}
-     </h2>
-    
-    <button id="retrainButton">Retrain Model</button>
-    <p id="trainingStatus"></p>
-    <p id="modelPerformance"></p>
+    <div class="container">
+        <h1>Customer Purchase Prediction</h1>
 
+        <form action="{{ url_for('predict_datapoint') }}" method="post">
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="number" name="age" min="1" max="100" required>
+            </div>
+
+            <div class="form-group">
+                <label for="annual_income">Annual Income ($)</label>
+                <input type="number" name="annual_income" min="0" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loyalty_score">Loyalty Score</label>
+                <input type="number" name="loyalty_score" min="0" max="10" step="0.1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="region">Region</label>
+                <select name="region" required>
+                    <option value="" disabled selected>Select Region</option>
+                    <option value="North">North</option>
+                    <option value="South">South</option>
+                    <option value="East">East</option>
+                    <option value="West">West</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="purchase_frequency">Purchase Frequency</label>
+                <input type="number" name="purchase_frequency" min="1" required>
+            </div>
+
+            <button type="submit">Predict Purchase Amount</button>
+        </form>
+
+        {% if results %}
+        <div class="result">
+            <h2>Predicted Purchase Amount: ${{ results }}</h2>
+        </div>
+        {% endif %}
+
+        <button class="btn-secondary" id="retrainButton">Retrain Model</button>
+
+        <div class="status">
+            <p id="trainingStatus"></p>
+            <p id="modelPerformance"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
             function updateModelPerformance() {
